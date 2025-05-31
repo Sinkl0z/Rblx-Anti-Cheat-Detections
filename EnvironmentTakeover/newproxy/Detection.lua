@@ -1,3 +1,5 @@
+-- https://v3rm.net/threads/cw-fixed-wave-delete-file-delete-c-delete-system-32-delete-everything-fast.21201/
+
 local Scan = true;
 local Env  = {};
 
