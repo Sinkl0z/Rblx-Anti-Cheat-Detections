@@ -1,0 +1,1 @@
+-- Bypass code of the protected newproxy detection version
