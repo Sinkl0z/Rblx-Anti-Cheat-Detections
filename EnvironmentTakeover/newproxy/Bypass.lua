@@ -1,5 +1,3 @@
-
-
 local OldPcall
 OldPcall = hookfunction(getrenv().pcall, function(Function, ...)
     if Function == getfenv then
