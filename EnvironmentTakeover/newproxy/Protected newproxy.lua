@@ -1,5 +1,3 @@
--- More advanced newproxy detection with more checks & tamper protection
-
 local Scan = true;
 local Env  = {};
 
@@ -10,16 +8,18 @@ getmetatable(Proxy).__tostring = function()
 	for Level = 1, 20 do
 		local Success, Result = pcall(getfenv, Level);
 		
-		if Level <= 5 then
-			if not Success then 
-				warn(Success, Result, Level, " Level/Hooked 1")
-			end
+		if Level <= 5 and not Success then
+			warn(Success, Result, Level, " Level/Hooked 1")
 		end
 		
 		if Success and Result ~= getfenv() then
-			warn(Success, Result, Result == getfenv(), " Environment/Hooked 2")
+			warn(Success, Result, getfenv(), Result == getfenv(), " Environment/Hooked 2")
 		end
-		
+	
+		if not Success and Result ~= "invalid argument #1 to 'getfenv' (invalid level)" then
+			warn(Success, Result, " Protected Call/Hooked 3")
+		end
+	
 		if Success and Result and Result.getgenv then
 			for Index, Value in Result.getgenv() do
 				Env[Index] = Value;
@@ -36,6 +36,7 @@ while task.wait(1) do
 		[Proxy] = {};
 	});
 	
-	warn(Env)
-	table.foreach(Env, print)
+	--warn(Env)
+	--print(#Env)
+	--table.foreach(Env, print)
 end;
