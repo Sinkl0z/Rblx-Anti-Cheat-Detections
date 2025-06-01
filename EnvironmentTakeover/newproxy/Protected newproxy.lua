@@ -19,6 +19,12 @@ getmetatable(Proxy).__tostring = function()
 		if not Success and Result ~= "invalid argument #1 to 'getfenv' (invalid level)" then
 			warn(Success, Result, " Protected Call/Hooked 3")
 		end
+		
+		local Boolean, ErrorString = pcall(pcall)
+
+		if Boolean or ErrorString ~= "missing argument #1" then
+			warn(Boolean, ErrorString, " Protected Call/Hooked 4")
+		end
 	
 		if Success and Result and Result.getgenv then
 			for Index, Value in Result.getgenv() do
