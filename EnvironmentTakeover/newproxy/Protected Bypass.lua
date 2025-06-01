@@ -3,7 +3,8 @@
 local OldPcall
 OldPcall = hookfunction(getrenv().pcall, function(Function, Level, ...)
     if Function == getfenv then
-        if Level >= 5 then
+        if Level <= 5 then
+            print(select(2, OldPcall(Function, Level, ...)), getfenv(Function))
             return true, select(2, OldPcall(Function, Level, ...))
         end
         return false, select(2, OldPcall(Function, Level, ...))
