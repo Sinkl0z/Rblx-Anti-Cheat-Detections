@@ -6,7 +6,7 @@ OldPcall = hookfunction(getrenv().pcall, function(Function, Level, ...)
         if Level <= 5 then
             return true, getfenv(Function)
         end
-        return false, select(2, OldPcall(Function, Level, ...))
+        return false, [[invalid argument #1 to 'getfenv' (invalid level)]]
     end
     return OldPcall(Function, ...)  
 end)
